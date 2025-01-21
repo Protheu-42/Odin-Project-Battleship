@@ -1,5 +1,6 @@
 import { testPlayer } from "./gameLogic";
 let receiveAttack = (x, y) => testPlayer.receiveAttack(x, y);
+let isAllShipsSunk = () => testPlayer.isAllShipsSunk();
 
 describe("Game basic logic tests", () => {
   test("Hit report", () => {
@@ -9,7 +10,7 @@ describe("Game basic logic tests", () => {
 
   test("All ships sunk report", () => {
     hitAllShips();
-    expect(testPlayer.isAllShipsSunk()).toBeTruthy();
+    expect(isAllShipsSunk()).toBeTruthy();
   });
 });
 
