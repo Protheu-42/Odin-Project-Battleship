@@ -29,7 +29,7 @@ function generateBoat() {
   };
 }
 
-export function gameBoard() {
+function gameBoard() {
   let board = [];
   let boardSize = 10;
   const generateBoard = (function () {
@@ -42,18 +42,16 @@ export function gameBoard() {
   })();
 
   //Ships
-  let ships = () => {
-    let carrier = generateBoat().carrier;
-    let battleShip = generateBoat().battleShip;
-    let destroyer = generateBoat().destroyer;
-    let submarine = generateBoat().submarine;
-    let patrolBoat = generateBoat().patrolBoat;
-    return { carrier, battleShip, destroyer, submarine, patrolBoat };
-  };
+
+  let carrier = generateBoat().carrier;
+  let battleShip = generateBoat().battleShip;
+  let destroyer = generateBoat().destroyer;
+  let submarine = generateBoat().submarine;
+  let patrolBoat = generateBoat().patrolBoat;
 
   const placeBoats = () => {
     (function placeCarrier() {
-      let length = ships().carrier.shipLength;
+      let length = carrier.shipLength;
       let coordinates = generateValidCoordinates(board, length);
       if (coordinates.direction === "horizontal") {
         for (let i = coordinates.y; i < coordinates.y + length; i++) {
@@ -66,7 +64,7 @@ export function gameBoard() {
       }
     })();
     (function placeBattleShip() {
-      let length = ships().battleShip.shipLength;
+      let length = battleShip.shipLength;
       let coordinates = generateValidCoordinates(board, length);
       if (coordinates.direction === "horizontal") {
         for (let i = coordinates.y; i < coordinates.y + length; i++) {
@@ -79,7 +77,7 @@ export function gameBoard() {
       }
     })();
     (function placeDestroyer() {
-      let length = ships().destroyer.shipLength;
+      let length = destroyer.shipLength;
       let coordinates = generateValidCoordinates(board, length);
       if (coordinates.direction === "horizontal") {
         for (let i = coordinates.y; i < coordinates.y + length; i++) {
@@ -92,7 +90,7 @@ export function gameBoard() {
       }
     })();
     (function placeSubmarine() {
-      let length = ships().submarine.shipLength;
+      let length = submarine.shipLength;
       let coordinates = generateValidCoordinates(board, length);
       if (coordinates.direction === "horizontal") {
         for (let i = coordinates.y; i < coordinates.y + length; i++) {
@@ -105,7 +103,7 @@ export function gameBoard() {
       }
     })();
     (function placePatrolBoat() {
-      let length = ships().patrolBoat.shipLength;
+      let length = patrolBoat.shipLength;
       let coordinates = generateValidCoordinates(board, length);
       if (coordinates.direction === "horizontal") {
         for (let i = coordinates.y; i < coordinates.y + length; i++) {
@@ -118,41 +116,95 @@ export function gameBoard() {
       }
     })();
   };
-  placeBoats();
 
   const receiveAttack = (x, y) => {
     if (board[x][y] !== 0) {
       switch (board[x][y]) {
         case "C":
-          ships().carrier.hit();
+          carrier.hit();
           break;
 
         case "B":
-          ships().battleShip.hit();
+          battleShip.hit();
           break;
 
         case "D":
-          ships().destroyer.hit();
+          destroyer.hit();
           break;
 
         case "S":
-          ships().submarine.hit();
+          submarine.hit();
           break;
 
         case "P":
-          ships().patrolBoat.hit();
+          patrolBoat.hit();
           break;
 
         default:
           break;
       }
-      board[x][y] === "h";
+      board[x][y] = "h";
+      return "Hit";
     } else {
-      board[x][y] === "m";
+      board[x][y] = "m";
+      return "Miss";
     }
   };
+
+  const isAllShipsSunk = () => {
+    let allSunk = false;
+    if (
+      carrier.isSunk() === true &&
+      battleShip.isSunk() === true &&
+      destroyer.isSunk() === true &&
+      submarine.isSunk() === true &&
+      patrolBoat.isSunk() === true
+    ) {
+      allSunk = true;
+      return allSunk;
+    } else {
+      return allSunk;
+    }
+  };
+
+  const devTestingMode = () => {
+    // empty the board
+    for (let i = 0; i < boardSize; i++) {
+      for (let j = 0; j < boardSize; j++) {
+        board[i][j] = 0;
+      }
+    }
+
+    // place each boat on a determinated position
+    for (let i = 0; i < 5; i++) {
+      board[0][i] = "C";
+    }
+    for (let i = 0; i < 4; i++) {
+      board[1][i] = "B";
+    }
+    for (let i = 0; i < 3; i++) {
+      board[2][i] = "D";
+    }
+    for (let i = 0; i < 3; i++) {
+      board[3][i] = "S";
+    }
+    for (let i = 0; i < 2; i++) {
+      board[4][i] = "P";
+    }
+  };
+
+  placeBoats();
+
   return {
-    ships,
     receiveAttack,
+    isAllShipsSunk,
+    devTestingMode,
   };
 }
+
+const realPlayer = gameBoard();
+const computerPlayer = gameBoard();
+const testPlayer = gameBoard();
+testPlayer.devTestingMode();
+
+export { testPlayer };
