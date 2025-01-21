@@ -1,3 +1,5 @@
+import { generateValidCoordinates } from "./coordinatesGenerator.js";
+
 function shipFactory(length) {
   let shipLength = length;
   let shipHull = shipLength;
@@ -50,17 +52,109 @@ export function gameBoard() {
   };
 
   const placeBoats = () => {
-    // function placeCarrier {
-    // let coordinates = generateValidCoordinates()
-    // if coordinates.direction === "horizontal"
-    // for loop for horizontal implementation
-    // else for loop for vertical implementation
+    (function placeCarrier() {
+      let length = ships().carrier.shipLength;
+      let coordinates = generateValidCoordinates(board, length);
+      if (coordinates.direction === "horizontal") {
+        for (let i = coordinates.y; i < coordinates.y + length; i++) {
+          board[coordinates.x][i] = "C";
+        }
+      } else {
+        for (let i = coordinates.x; i < coordinates.x + length; i++) {
+          board[i][coordinates.y] = "C";
+        }
+      }
+    })();
+    (function placeBattleShip() {
+      let length = ships().battleShip.shipLength;
+      let coordinates = generateValidCoordinates(board, length);
+      if (coordinates.direction === "horizontal") {
+        for (let i = coordinates.y; i < coordinates.y + length; i++) {
+          board[coordinates.x][i] = "B";
+        }
+      } else {
+        for (let i = coordinates.x; i < coordinates.x + length; i++) {
+          board[i][coordinates.y] = "B";
+        }
+      }
+    })();
+    (function placeDestroyer() {
+      let length = ships().destroyer.shipLength;
+      let coordinates = generateValidCoordinates(board, length);
+      if (coordinates.direction === "horizontal") {
+        for (let i = coordinates.y; i < coordinates.y + length; i++) {
+          board[coordinates.x][i] = "D";
+        }
+      } else {
+        for (let i = coordinates.x; i < coordinates.x + length; i++) {
+          board[i][coordinates.y] = "D";
+        }
+      }
+    })();
+    (function placeSubmarine() {
+      let length = ships().submarine.shipLength;
+      let coordinates = generateValidCoordinates(board, length);
+      if (coordinates.direction === "horizontal") {
+        for (let i = coordinates.y; i < coordinates.y + length; i++) {
+          board[coordinates.x][i] = "S";
+        }
+      } else {
+        for (let i = coordinates.x; i < coordinates.x + length; i++) {
+          board[i][coordinates.y] = "S";
+        }
+      }
+    })();
+    (function placePatrolBoat() {
+      let length = ships().patrolBoat.shipLength;
+      let coordinates = generateValidCoordinates(board, length);
+      if (coordinates.direction === "horizontal") {
+        for (let i = coordinates.y; i < coordinates.y + length; i++) {
+          board[coordinates.x][i] = "P";
+        }
+      } else {
+        for (let i = coordinates.x; i < coordinates.x + length; i++) {
+          board[i][coordinates.y] = "P";
+        }
+      }
+    })();
   };
   placeBoats();
 
+  const receiveAttack = (x, y) => {
+    if (board[x][y] !== 0) {
+      switch (board[x][y]) {
+        case "C":
+          ships().carrier.hit();
+          break;
+
+        case "B":
+          ships().battleShip.hit();
+          break;
+
+        case "D":
+          ships().destroyer.hit();
+          break;
+
+        case "S":
+          ships().submarine.hit();
+          break;
+
+        case "P":
+          ships().patrolBoat.hit();
+          break;
+
+        default:
+          break;
+      }
+
+      board[x][y] === "h";
+    }
+  };
   return {
     ships,
+    receiveAttack,
   };
 }
 
-// gameBoard();
+const playerOne = gameBoard();
+playerOne.receiveAttack(6, 5);
