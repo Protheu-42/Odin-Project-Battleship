@@ -146,8 +146,9 @@ export function gameBoard() {
         default:
           break;
       }
-
       board[x][y] === "h";
+    } else {
+      board[x][y] === "m";
     }
   };
   return {
@@ -155,6 +156,3 @@ export function gameBoard() {
     receiveAttack,
   };
 }
-
-const playerOne = gameBoard();
-playerOne.receiveAttack(6, 5);
