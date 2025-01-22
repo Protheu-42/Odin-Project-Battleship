@@ -29,17 +29,22 @@ function generateBoat() {
   };
 }
 
+export function generateBoard(board, boardSize = 10) {
+  for (let i = 0; i < boardSize; i++) {
+    board[i] = [];
+    for (let j = 0; j < boardSize; j++) {
+      board[i].push(0);
+    }
+  }
+}
+
 function gameBoard() {
   let board = [];
   let boardSize = 10;
-  const generateBoard = (function () {
-    for (let i = 0; i < boardSize; i++) {
-      board[i] = [];
-      for (let j = 0; j < boardSize; j++) {
-        board[i].push(0);
-      }
-    }
-  })();
+  generateBoard(board, boardSize);
+  function printBoard() {
+    console.table(board);
+  }
 
   //Ships
 
@@ -196,16 +201,16 @@ function gameBoard() {
   placeBoats();
 
   return {
+    printBoard,
     receiveAttack,
     isAllShipsSunk,
     devTestingMode,
   };
 }
 
-const realPlayer = gameBoard();
-const computerPlayer = gameBoard();
+export const realPlayer = gameBoard();
+export const computerPlayer = gameBoard();
+
 const testPlayer = gameBoard();
 testPlayer.devTestingMode();
-
 export { testPlayer };
-export const testing = "testing";

@@ -1,3 +1,5 @@
 import "./styles.css";
 import { testing } from "./gameLogic";
-console.log(testing);
+import { gameController } from "./gameControler";
+
+gameController();
