@@ -97,6 +97,7 @@ function isGameOver(player) {
       body.removeChild(body.firstChild);
     }
     div.textContent = `${playerName} lost`;
+    div.className = "game-over";
     body.appendChild(div);
     return true;
   } else {
