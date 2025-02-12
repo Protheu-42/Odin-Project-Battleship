@@ -36,7 +36,7 @@ function generateRandomDirection() {
 }
 
 function generateRandomCoordinate() {
-  return Math.floor(Math.random() * 9); // board is size 10, so the array is from 0 to 9
+  return Math.floor(Math.random() * 10); // board is size 10, so the array is from 0 to 9
 }
 
 function testVertical(board, shipLength, x, y) {

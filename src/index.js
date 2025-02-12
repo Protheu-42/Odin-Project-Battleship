@@ -1,6 +1,5 @@
 import "./styles.css";
-import { testing } from "./gameLogic";
-import { gameController } from "./gameControler";
+import { computerPlayer, realPlayer } from "./gameLogic";
 import { generateBoardInterface } from "./DOMController";
 
-generateBoardInterface();
+generateBoardInterface(realPlayer, computerPlayer);

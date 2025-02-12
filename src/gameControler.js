@@ -5,7 +5,7 @@ import {
   generateBoard,
 } from "./gameLogic";
 
-export function gameController() {
+function gameController() {
   let enemyBoard = createEmptyBoard();
   let gameOver = false;
   const real = realPlayer;
@@ -25,6 +25,7 @@ export function gameController() {
         console.log("All computer ships are sunken, the player won!");
       }
     } else {
+      // computer turn
       let xCoordinate = randomCoordinates();
       let yCoordinate = randomCoordinates();
       let attackReport = real.receiveAttack(xCoordinate, yCoordinate);
