@@ -201,6 +201,7 @@ function gameBoard() {
   placeBoats();
 
   return {
+    board,
     printBoard,
     receiveAttack,
     isAllShipsSunk,

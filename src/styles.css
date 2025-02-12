@@ -1,0 +1,25 @@
+body {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 40% 10% 40%;
+  height: 100vh;
+}
+
+.game-board {
+  margin-left: 20%;
+  display: grid;
+  align-self: center;
+  grid-template-columns: repeat(10, 50px);
+  grid-template-rows: repeat(10, 50px);
+}
+
+.log {
+  align-self: center;
+}
+
+.game-board > div {
+  border: 1px solid blue;
+  padding: 5px;
+  text-align: center;
+}

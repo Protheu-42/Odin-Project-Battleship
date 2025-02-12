@@ -1,20 +1,3 @@
-// export function generateValidCoordinates(board, shipLength) {
-//   let x = generateRandomCoordinate();
-//   let y = generateRandomCoordinate();
-//   if (testHorizontal(board, shipLength, x, y) === false) {
-//     generateValidCoordinates(board, shipLength);
-//   }
-//   if (testVertical(board, shipLength, x, y) === false) {
-//     generateValidCoordinates(board, shipLength);
-//   }
-//   let direction = generateRandomDirection();
-//   return {
-//     x,
-//     y,
-//     direction,
-//   };
-// }
-
 export function generateValidCoordinates(board, shipLength) {
   let isValid = false;
   let x;
@@ -58,26 +41,32 @@ function generateRandomCoordinate() {
 
 function testVertical(board, shipLength, x, y) {
   let length = shipLength + x - 1;
+  let result = true;
   if (length > 9) {
-    return false;
+    result = false;
+    return;
   }
   for (let i = x; i < length; i++) {
     if (board[i][y] !== 0) {
-      return false;
+      result = false;
+      return;
     }
   }
-  return true;
+  return result;
 }
 
 function testHorizontal(board, shipLength, x, y) {
   let length = shipLength + y - 1;
+  let result = true;
   if (length > 9) {
-    return false;
+    result = false;
+    return;
   }
   for (let i = y; i < length; i++) {
     if (board[x][i] !== 0) {
-      return false;
+      result = false;
+      return;
     }
   }
-  return true;
+  return result;
 }

@@ -9,7 +9,7 @@ export function gameController() {
   let enemyBoard = createEmptyBoard();
   let gameOver = false;
   const real = realPlayer;
-  const computer = testPlayer;
+  const computer = computerPlayer;
   let currentPlayer = real;
   do {
     if (currentPlayer === real) {
