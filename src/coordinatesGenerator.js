@@ -40,33 +40,27 @@ function generateRandomCoordinate() {
 }
 
 function testVertical(board, shipLength, x, y) {
-  let length = shipLength + x - 1;
-  let result = true;
-  if (length > 9) {
-    result = false;
-    return;
+  let length = shipLength + x;
+  if (length > 10) {
+    return false;
   }
   for (let i = x; i < length; i++) {
     if (board[i][y] !== 0) {
-      result = false;
-      return;
+      return false;
     }
   }
-  return result;
+  return true;
 }
 
 function testHorizontal(board, shipLength, x, y) {
-  let length = shipLength + y - 1;
-  let result = true;
-  if (length > 9) {
-    result = false;
-    return;
+  let length = shipLength + y;
+  if (length > 10) {
+    return false;
   }
   for (let i = y; i < length; i++) {
     if (board[x][i] !== 0) {
-      result = false;
-      return;
+      return false;
     }
   }
-  return result;
+  return true;
 }

@@ -66,7 +66,7 @@ function createCell(cellId, text, typeOfPlayer) {
   } else {
     // computer player
     cell.setAttribute("id", "c" + cellId);
-    cell.textContent = text; // hide computer ships
+    cell.textContent = ""; // hide computer ships
     return cell;
   }
 }
